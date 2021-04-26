@@ -2,11 +2,15 @@
 
 **This is purely meant as a technical example. It is not a complete app or ready for production use**
 
-A quickly thrown together sample on how to use the New OAuth Capabilities with Neos. I used a [guide](https://www.sitepoint.com/create-new-express-js-apps-with-express-generator/) to generate a quick Express App. I'd usually do this manually but for a quick sample its ok.
+A quickly thrown together sample on how to use the New OAuth Capabilities with Neos. I used a [package](https://www.npmjs.com/package/express-generator) to generate a quick Express App. I'd usually do this manually but for a quick sample its ok. I really don't like the Jade Syntax but i've never really used it.
+
+## Status
+
+**BARELY working**, Neos' OAuth is still under construction as is Frooxius and I's understanding of how everything should work from both a developer and Neos' perspective. Do not expect to use this for basically anything at all!!!
 
 ## Setup
 
-You will need OAuth Application credentials from the Neos Team. These aren't easy to get right now and are given out manually to select applications or scenarios. You can request some by emailing [hello@neos.com](mailto:hello@neos.com). Please don't spam them though. Only certain applications will be allowed right now.
+You will need OAuth Application credentials from the Neos Team. **These aren't easy to get right now** and are given out manually to select applications or scenarios. You can request some by emailing [hello@neos.com](mailto:hello@neos.com).**Please don't spam them though. Only certain applications will be allowed right now.**
 
 Once you have these credentials you can try them out.
 
