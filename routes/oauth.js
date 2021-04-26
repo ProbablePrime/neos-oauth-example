@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const config = require('config');
+const fetch = require('node-fetch');
 
 const { AuthorizationCode } = require("simple-oauth2");
 
@@ -12,27 +13,34 @@ const oauthConfig = {
 		authorizePath: "connect/authorize",
 		tokenPath: "connect/token",
 	},
+	options: {
+		bodyFormat: 'form',
+		authorizationMethod: 'body'
+	},
+};
+const params = {
+	redirect_uri: "http://localhost:8080",
+	scope: "profile",
 };
 
 const client = new AuthorizationCode(oauthConfig);
 
-const params = {
-	redirect_uri: "http://localhost:8080/auth/callback",
-	scope: "profile",
-};
-
 const authorizationUri = client.authorizeURL(params);
 
+// This may break later
 async function getNeosProfile(token) {
-	return {
-		username: 'potato',
-		userId: 'potato-2'
-	}
+	const res = await fetch('https://cloudx-account.azurewebsites.net/api/test/status', {
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const body = await res.text();
+	return body;
 }
 
 router.get("/authorize", (req, res) => {
 	// Here we redirect the user to Neos, they will log in and then come back to /callback
-	console.log(authorizationUri);
 	res.redirect(authorizationUri);
 });
 
@@ -41,21 +49,25 @@ router.get("/callback", async (req, res) => {
 
 	// The code comes from the query params
 	const code = req.query.code;
-
 	try {
 		// Exchange the code for a token.
 		// You probably need to save this somewhere
-		const accessToken = await client.getToken(code);
-
+		const accessToken = await client.getToken({
+			code,
+			redirect_uri: params.redirect_uri
+		});
 		// Using the token we get the user's neos profile
-		const profile = await getNeosProfile(token);
-
-		res.status(200);
+		const profile = await getNeosProfile(accessToken.token.access_token);
 		res.render('profile', {
 			profile
 		});
 		return;
 	} catch (error) {
+		if(error.data && error.data.payload) {
+			console.log(error.data.payload);
+		} else {
+			console.log(error);
+		}
 		console.error("Access Token Error", error.message);
 		return res.status(500).json("Authentication failed");
 	}
