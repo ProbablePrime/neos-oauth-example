@@ -2,7 +2,11 @@
 
 **This is purely meant as a technical example. It is not a complete app or ready for production use**
 
-A quickly thrown together sample on how to use the New OAuth Capabilities with Neos. I used a [package](https://www.npmjs.com/package/express-generator) to generate a quick Express App. I'd usually do this manually but for a quick sample its ok. I really don't like the Jade Syntax but i've never really used it.
+A quickly thrown together sample on how to use the New OAuth Capabilities with Neos. 
+
+I used a [package](https://www.npmjs.com/package/express-generator) to generate a quick Express App. I'd usually do this manually but for a quick sample its ok. I really don't like the Jade Syntax but it was rebranded/made into Pug a few years back. 
+
+Turns out this generator is super old, I'll update things if I need to.
 
 ## Status
 
