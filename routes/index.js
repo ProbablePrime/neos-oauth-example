@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
 		res.redirect('/oauth/callback?code=' + req.query.code);
 		return;
 	}
-	res.render("index", { title: "Neos OAuth Example" });
+	res.render("index");
 });
 
 module.exports = router;

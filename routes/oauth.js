@@ -5,9 +5,8 @@ const fetch = require('node-fetch');
 
 const { AuthorizationCode } = require("simple-oauth2");
 
-const oauthClient = config.get('oauth');
 const oauthConfig = {
-	client: oauthClient,
+	client: config.get('oauth'),
 	auth: {
 		tokenHost: "https://cloudx-account.azurewebsites.net/",
 		authorizePath: "connect/authorize",
@@ -18,14 +17,14 @@ const oauthConfig = {
 		authorizationMethod: 'body'
 	},
 };
-const params = {
+
+const redirectParams = {
 	redirect_uri: "http://localhost:8080",
 	scope: "profile",
 };
 
 const client = new AuthorizationCode(oauthConfig);
-
-const authorizationUri = client.authorizeURL(params);
+const authorizationUri = client.authorizeURL(redirectParams);
 
 // This may break later
 async function getNeosProfile(token) {
@@ -35,8 +34,7 @@ async function getNeosProfile(token) {
 			'Authorization': `Bearer ${token}`,
 		}
 	});
-	const body = await res.text();
-	return body;
+	return await res.text();
 }
 
 router.get("/authorize", (req, res) => {
@@ -54,14 +52,13 @@ router.get("/callback", async (req, res) => {
 		// You probably need to save this somewhere
 		const accessToken = await client.getToken({
 			code,
-			redirect_uri: params.redirect_uri
+			redirect_uri: redirectParams.redirect_uri
 		});
 		// Using the token we get the user's neos profile
 		const profile = await getNeosProfile(accessToken.token.access_token);
 		res.render('profile', {
 			profile
 		});
-		return;
 	} catch (error) {
 		if(error.data && error.data.payload) {
 			console.log(error.data.payload);

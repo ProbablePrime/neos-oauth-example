@@ -2,15 +2,11 @@
 
 **This is purely meant as a technical example. It is not a complete app or ready for production use**
 
-A quickly thrown together sample on how to use the New OAuth Capabilities with Neos. 
-
-I used a [package](https://www.npmjs.com/package/express-generator) to generate a quick Express App. I'd usually do this manually but for a quick sample its ok. I really don't like the Jade Syntax but it was rebranded/made into Pug a few years back. 
-
-Turns out this generator is super old, I'll update things if I need to.
+A quickly thrown together sample on how to use the New OAuth Capabilities with Neos.
 
 ## Status
 
-**BARELY working**, Neos' OAuth is still under construction as is Frooxius and I's understanding of how everything should work from both a developer and Neos' perspective. Do not expect to use this for basically anything at all!!!
+**BARELY working**, Neos' OAuth is still under construction.
 
 ## Setup
 
@@ -32,4 +28,6 @@ Once running, head to `localhost:8080/auth/authorize`. This will redirect you to
 
 ## Notes
 
-While this may look simple, do note that you need to have some understanding of what OAuth is and how it works. Don't expect to install this and have OAuth working for your application or scenario. You'll need to do some work to actually do something with this setup.
+While this may look simple, do note that you need to have some understanding of what OAuth is and how it works.
+
+Don't expect to install this and have OAuth working for your application or scenario. You'll need to do some work to actually do something with this setup.
