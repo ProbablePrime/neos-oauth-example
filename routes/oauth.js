@@ -28,13 +28,14 @@ const authorizationUri = client.authorizeURL(redirectParams);
 
 // This may break later
 async function getNeosProfile(token) {
-	const res = await fetch('https://cloudx-account.azurewebsites.net/api/test/status', {
+
+	const res = await fetch('https://cloudx-account.azurewebsites.net/api/user/profile', {
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`,
 		}
 	});
-	return await res.text();
+	return await res.json();
 }
 
 router.get("/authorize", (req, res) => {
