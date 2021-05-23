@@ -8,7 +8,7 @@ const { AuthorizationCode } = require("simple-oauth2");
 const oauthConfig = {
 	client: config.get('oauth'),
 	auth: {
-		tokenHost: "https://cloudx-account.azurewebsites.net/",
+		tokenHost: "https://auth.neos.com/",
 		authorizePath: "connect/authorize",
 		tokenPath: "connect/token",
 	},
@@ -29,7 +29,7 @@ const authorizationUri = client.authorizeURL(redirectParams);
 // This may break later
 async function getNeosProfile(token) {
 
-	const res = await fetch('https://cloudx-account.azurewebsites.net/api/user/profile', {
+	const res = await fetch(oauthConfig.auth.tokenHost + 'api/user/profile', {
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`,
